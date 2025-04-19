@@ -9,11 +9,11 @@ git2：2323
 gti：to origin 2308
 git：main
 git2:tobranch
-<<<<<<< HEAD
+
 git：main
-=======
+
 git2：main
->>>>>>> 296264175d97ac348ae90aeaee96a24e0a174d9e
+
 
 
 

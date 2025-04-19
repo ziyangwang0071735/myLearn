@@ -7,6 +7,10 @@ git2：to origin
 git2：to origin2305
 git2：2323
 gti：to origin 2308
+<<<<<<< HEAD
 git：main
+=======
+git2:tobranch
+>>>>>>> 1084adefff6af6508501f1df3d3ea5cef195d50f
 
 

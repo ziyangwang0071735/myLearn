@@ -1,15 +1,11 @@
 GIT：test1：2226
 git：test2：2228
 git：test3：2230
-
 git2：origin：2242
-
 git2：to origin2
-<<<<<<< HEAD
 git2：to origin
 git2：to origin2305
 git2：2323
-=======
 gti：to origin 2308
 
 

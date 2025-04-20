@@ -1,0 +1,2 @@
+lfs_flash10_mount();
+lfs_flash10_file_write("log.txt", "Hello Flash10!", 14);

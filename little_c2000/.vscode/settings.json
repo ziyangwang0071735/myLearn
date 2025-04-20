@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "lfs_c2000_config.h": "c",
+        "lfs_util.h": "c",
+        "lfs.h": "c"
+    }
+}

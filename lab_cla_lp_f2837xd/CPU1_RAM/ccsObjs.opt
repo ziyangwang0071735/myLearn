@@ -1,0 +1,11 @@
+"./Hal_Eep.obj"
+"./i2cLib_FIFO_polling.obj"
+"./i2c_ex4_eeprom_polling.obj"
+"./lab_cla_tasks.obj"
+"./syscfg/board.obj"
+"./syscfg/c2000ware_libraries.obj"
+"./device/F2837xD_CodeStartBranch.obj"
+"./device/device.obj"
+"../2837xD_RAM_CLA_lnk_cpu1.cmd"
+"C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/ccs/Debug/driverlib.lib"
+-llibc.a

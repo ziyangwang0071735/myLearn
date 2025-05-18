@@ -1,0 +1,32 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#fff'}}}%%
+graph TD
+    %% 核心函数
+    FoE_Read --> FileMan_ReadFirstSectorFile
+    FoE_Read --> CRC32_Calc_Cycle
+    FoE_ReadData --> FileMan_ReadRemainderSectorFile
+    FoE_ReadData --> CRC32_Calc_Cycle
+    
+    FoE_Write --> FileMan_AddFileToDirectory
+    FoE_Write -->|Boot模式| Flash_Erase
+    FoE_Write -->|Boot模式| Flash_PageWrite
+    
+    FoE_WriteData -->|数据校验| CRC32_Calc_Cycle
+    FoE_WriteData --> Flash_PageWrite
+    
+    %% 错误处理
+    CRC32_Calc_Cycle -.->|校验失败| ECAT_FOE_ERRCODE_INVALID_FIRMWARE
+    Flash_PageWrite -.->|写入失败| ECAT_FOE_ERRCODE_PROGERROR
+    FileMan_AddFileToDirectory -.->|空间不足| ECAT_FOE_ERRCODE_DISKFULL
+    
+    %% 样式定义
+    classDef app fill:#f0abfc,stroke:#333
+    classDef file fill:#8ce99a,stroke:#333
+    classDef flash fill:#ff8787,stroke:#333
+    classDef crc fill:#74c0fc,stroke:#333
+    classDef error fill:#ffd8a8,stroke:#ff6b6b
+    
+    class FoE_Read,FoE_WriteData,FoE_Write app
+    class FileMan_ReadFirstSectorFile,FileMan_AddFileToDirectory file
+    class Flash_Erase,Flash_PageWrite flash
+    class CRC32_Calc_Cycle crc
+    class ECAT_FOE_ERRCODE* error

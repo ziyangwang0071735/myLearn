@@ -38,6 +38,7 @@
 #define FILEPAGE_MAPPING_MAX_SIZE 4//max_file_num = 120 < 4*32
 #define FILESYS_MAX_FILENAME_SIZE 32// Maximum length of a filename
 #define FILESYS_ILLEDGE_FILENAME_NUM 10 
+#define FILESYS_READ_FILEINFO_OFFSET 24
 
 
 typedef struct FILESYS_FILEINFO FILESYS_FILEINFO_t;
@@ -78,8 +79,9 @@ typedef struct FILESYS_FLASH_CFG_USER{
     uint32_t  (*Flash_Read)(uint32_t addr, uint8_t *buf, uint32_t len);
     uint32_t  (*Flash_Init)(void);
     uint32_t  (*Flash_Eraser)(uint32_t addr, uint32_t len);
-  uint32_t  (*Feed_Dog)(void);
-  uint32_t (*CRC32_Calc)(const uint8_t* buf, uint32_t len);
+    uint32_t  (*Flash_Status)(void);
+    uint32_t  (*Feed_Dog)(void);
+    uint32_t (*CRC32_Calc)(const uint8_t* buf, uint32_t len);
 }FILESYS_FLASH_CFG_t;
 typedef struct
 {
@@ -104,10 +106,10 @@ typedef struct FILESYS_CFG_EXPAND{
     uint32_t fileSysPageNumb;         // Number of pages in the file system 
     uint32_t fileSysFilenameSize;     // Maximum length of a filename
     uint32_t fileSysPageSize;         // Size of each page，while is the smallest unit of reading
-                    // (fileSysPageSize = fileSysPageFactor * flashSectorSize)
+                                      // (fileSysPageSize = fileSysPageFactor * flashSectorSize)
     uint32_t fileSysMaxFileVol;       // Maximum file volume size
-    uint32_t fileSysMaxFileNumb;      // Maximum number of files
-    uint32_t fileSysMaxFileSize;      // Maximum size of a file
+    uint32_t fileSysMaxFileNumb;      // Maximum number of files (except for firmware updata file)
+    uint32_t fileSysMaxFileSize;      // Maximum size of a file (except for firmware updata files)
     uint32_t flashEndAddr;            // End address of the flash
     uint32_t *fileSys_IllegalName;     // the size of the directory being written/read
   uint32_t *fileCache;        // Pointer to the directory cache
@@ -124,9 +126,9 @@ typedef struct FILESYS_FILEINFO{
 } FILESYS_FILEINFO_t;//size:56
 
 typedef struct FILESYS_SECTOR_DIRECTORY{
-    uint32_t totlaFileNums;
-    uint32_t totlaOcuppyPages;
-    uint32_t filePage_Mapping[FILEPAGE_MAPPING_MAX_SIZE];
+    uint32_t totlaFileNums;//4
+    uint32_t totlaOcuppyPages;//4
+    uint32_t filePage_Mapping[FILEPAGE_MAPPING_MAX_SIZE];//16
     uint8_t payload[PAYLOAD_MAX_LENGTH ];
     uint32_t directoryCRC32;
 } FILESYS_SECTOR_DIRECTORY_t;
@@ -136,6 +138,7 @@ typedef struct FILESYS_DIR_VAR{
   uint16_t fileSys_DirFileSize;// the size of the directory being written/read
   uint16_t fileSys_FileNum;// the number of files in current directory.
   uint32_t fileSys_SumPages;// the sum of pages in current directory.
+  uint16_t fileExist_Flag;
 }FILESYS_DIR_VAR_t;
 
 typedef struct FILESYS_CURRENT_STATUS
@@ -175,6 +178,8 @@ typedef enum FILESYS_ERRCODE{
 /******* G L O B A L - F U N C T I O N - P R O T O T Y P E S *****************/
 void FileSys_Cfg_Init(void);
 void FileSys_Init(void);
+FILESYS_ERRCODE_e FileSystem_ReadFileGeneral(const uint8_t *pName,uint8_t name_Size,uint8_t* pBuffer, uint32_t bufferSize);
+FILESYS_ERRCODE_e FileSystem_WriteFileGeneral(const uint8_t *pName,uint8_t name_Size,const uint8_t *pBuf, uint32_t dataLen);
 FILESYS_ERRCODE_e FileSys_ReadDirPage(void);
 FILESYS_ERRCODE_e FileSys_ReadFileHeader(uint8_t * pName, uint16_t nameSize, uint32_t password, 
                     uint16_t maxBlockSize, uint8_t *pData);
@@ -183,6 +188,13 @@ FILESYS_ERRCODE_e FileSys_PrepareWrite(uint8_t * pName, uint16_t nameSize, uint3
 FILESYS_ERRCODE_e FileSys_WriteData(uint8_t * pData, uint16_t Size, BOOL bDataFollowing);
 FILESYS_ERRCODE_e FileSys_isBootMode(void);
 FILESYS_ERRCODE_e FileSys_ClcDir(void);//Clear the directory in the flash.
-FILESYS_ERRCODE_e FileSys_IsFileNameIllegal(void)
+FILESYS_ERRCODE_e FileSys_IsFileNameIllegal(void);
+uint16_t FileSys_AddFileToDirectory(char  *pFileName,uint16_t nameSize);
+uint8_t FileSys_DelFileData(uint16_t FileIndex);
+uint16_t FileSys_WriteFileData(uint16_t WriteBlock,uint16_t Size,char *FileName,uint8_t *WriteBuf);
+uint16_t FileSys_ReadFileFirstBlock(char *pFileName,uint16_t nameSize, uint8_t *OutBuf);
+void FileSys_ReadFileRemainderPage(uint32_t hadReadSize, uint8_t *OutBuf);
+uint16_t FileSys_findFileIndex(char  * pFileName,uint16_t nameSize);
+uint16_t FileSys_availablePage(FILESYS_SECTOR_DIRECTORY_t *dir,uint16_t serchNo);
 #endif /* FILESYS_H */
 /******* E N D  (FileSys.h)****************************************************/

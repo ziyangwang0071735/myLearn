@@ -1,7 +1,7 @@
 # FIXED
 
 i2c_ex4_eeprom_polling.obj: ../i2c_ex4_eeprom_polling.c
-i2c_ex4_eeprom_polling.obj: C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/driverlib.h
+i2c_ex4_eeprom_polling.obj: D:/Project/myLearn/lab_cla_lp_f2837xd/device/driverlib.h
 i2c_ex4_eeprom_polling.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/inc/hw_memmap.h
 i2c_ex4_eeprom_polling.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/adc.h
 i2c_ex4_eeprom_polling.obj: C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/stdbool.h
@@ -87,16 +87,16 @@ i2c_ex4_eeprom_polling.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverl
 i2c_ex4_eeprom_polling.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/inc/hw_upp.h
 i2c_ex4_eeprom_polling.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/version.h
 i2c_ex4_eeprom_polling.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/driver_inclusive_terminology_mapping.h
-i2c_ex4_eeprom_polling.obj: C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/device.h
+i2c_ex4_eeprom_polling.obj: D:/Project/myLearn/lab_cla_lp_f2837xd/device/device.h
 i2c_ex4_eeprom_polling.obj: syscfg/board.h
-i2c_ex4_eeprom_polling.obj: C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/device.h
+i2c_ex4_eeprom_polling.obj: D:/Project/myLearn/lab_cla_lp_f2837xd/device/device.h
 i2c_ex4_eeprom_polling.obj: ../i2cLib_FIFO_polling.h
-i2c_ex4_eeprom_polling.obj: C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/device.h
+i2c_ex4_eeprom_polling.obj: D:/Project/myLearn/lab_cla_lp_f2837xd/device/device.h
 i2c_ex4_eeprom_polling.obj: ../Hal_Eep.h
 
 ../i2c_ex4_eeprom_polling.c:
 
-C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/driverlib.h:
+D:/Project/myLearn/lab_cla_lp_f2837xd/device/driverlib.h:
 
 C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/inc/hw_memmap.h:
 
@@ -268,15 +268,15 @@ C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/version.h:
 
 C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/driver_inclusive_terminology_mapping.h:
 
-C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/device.h:
+D:/Project/myLearn/lab_cla_lp_f2837xd/device/device.h:
 
 syscfg/board.h:
 
-C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/device.h:
+D:/Project/myLearn/lab_cla_lp_f2837xd/device/device.h:
 
 ../i2cLib_FIFO_polling.h:
 
-C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/device.h:
+D:/Project/myLearn/lab_cla_lp_f2837xd/device/device.h:
 
 ../Hal_Eep.h:
 

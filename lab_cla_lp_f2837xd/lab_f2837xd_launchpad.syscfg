@@ -24,6 +24,7 @@ i2c1.targetAddress         = 0x50;
 i2c1.enabledInterrupts     = ["I2C_INT_ADDR_TARGET","I2C_INT_ARB_LOST","I2C_INT_NO_ACK","I2C_INT_STOP_CONDITION"];
 i2c1.enabledFIFOInterrupts = ["I2C_INT_RXFF","I2C_INT_TXFF"];
 i2c1.ownAddress            = 0x60;
+i2c1.useInterrupts         = false;
 i2c1.i2c.sdaPin.$assign    = "boosterpack1.10";
 i2c1.i2c.sclPin.$assign    = "boosterpack1.9";
 scripting.suppress("Connected to hardware,@@@.+?@@@ is connected to I2CA BP on the LaunchPad F28379D\\. Consider selecting it in \'use hardware\' above\\. @@@.+?@@@", i2c1.i2c, "sdaPin");

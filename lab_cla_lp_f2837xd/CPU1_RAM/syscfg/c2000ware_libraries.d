@@ -3,7 +3,7 @@
 syscfg/c2000ware_libraries.obj: syscfg/c2000ware_libraries.c
 syscfg/c2000ware_libraries.obj: syscfg/c2000ware_libraries.h
 syscfg/c2000ware_libraries.obj: syscfg/board.h
-syscfg/c2000ware_libraries.obj: C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/driverlib.h
+syscfg/c2000ware_libraries.obj: D:/Project/myLearn/lab_cla_lp_f2837xd/device/driverlib.h
 syscfg/c2000ware_libraries.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/inc/hw_memmap.h
 syscfg/c2000ware_libraries.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/adc.h
 syscfg/c2000ware_libraries.obj: C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/stdbool.h
@@ -89,7 +89,7 @@ syscfg/c2000ware_libraries.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/dri
 syscfg/c2000ware_libraries.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/inc/hw_upp.h
 syscfg/c2000ware_libraries.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/version.h
 syscfg/c2000ware_libraries.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/driver_inclusive_terminology_mapping.h
-syscfg/c2000ware_libraries.obj: C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/device.h
+syscfg/c2000ware_libraries.obj: D:/Project/myLearn/lab_cla_lp_f2837xd/device/device.h
 
 syscfg/c2000ware_libraries.c:
 
@@ -97,7 +97,7 @@ syscfg/c2000ware_libraries.h:
 
 syscfg/board.h:
 
-C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/driverlib.h:
+D:/Project/myLearn/lab_cla_lp_f2837xd/device/driverlib.h:
 
 C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/inc/hw_memmap.h:
 
@@ -269,5 +269,5 @@ C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/version.h:
 
 C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/driver_inclusive_terminology_mapping.h:
 
-C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/device.h:
+D:/Project/myLearn/lab_cla_lp_f2837xd/device/device.h:
 

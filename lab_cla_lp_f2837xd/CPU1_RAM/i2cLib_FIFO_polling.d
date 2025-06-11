@@ -2,8 +2,8 @@
 
 i2cLib_FIFO_polling.obj: ../i2cLib_FIFO_polling.c
 i2cLib_FIFO_polling.obj: ../i2cLib_FIFO_polling.h
-i2cLib_FIFO_polling.obj: C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/device.h
-i2cLib_FIFO_polling.obj: C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/driverlib.h
+i2cLib_FIFO_polling.obj: D:/Project/myLearn/lab_cla_lp_f2837xd/device/device.h
+i2cLib_FIFO_polling.obj: D:/Project/myLearn/lab_cla_lp_f2837xd/device/driverlib.h
 i2cLib_FIFO_polling.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/inc/hw_memmap.h
 i2cLib_FIFO_polling.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/adc.h
 i2cLib_FIFO_polling.obj: C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/stdbool.h
@@ -95,9 +95,9 @@ i2cLib_FIFO_polling.obj: ../Hal_Eep.h
 
 ../i2cLib_FIFO_polling.h:
 
-C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/device.h:
+D:/Project/myLearn/lab_cla_lp_f2837xd/device/device.h:
 
-C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/driverlib.h:
+D:/Project/myLearn/lab_cla_lp_f2837xd/device/driverlib.h:
 
 C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/inc/hw_memmap.h:
 

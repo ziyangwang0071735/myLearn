@@ -1,7 +1,7 @@
 # FIXED
 
 Hal_Eep.obj: ../Hal_Eep.c
-Hal_Eep.obj: C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/driverlib.h
+Hal_Eep.obj: D:/Project/myLearn/lab_cla_lp_f2837xd/device/driverlib.h
 Hal_Eep.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/inc/hw_memmap.h
 Hal_Eep.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/adc.h
 Hal_Eep.obj: C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/stdbool.h
@@ -87,14 +87,14 @@ Hal_Eep.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/upp.h
 Hal_Eep.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/inc/hw_upp.h
 Hal_Eep.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/version.h
 Hal_Eep.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/driver_inclusive_terminology_mapping.h
-Hal_Eep.obj: C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/device.h
+Hal_Eep.obj: D:/Project/myLearn/lab_cla_lp_f2837xd/device/device.h
 Hal_Eep.obj: ../i2cLib_FIFO_polling.h
-Hal_Eep.obj: C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/device.h
+Hal_Eep.obj: D:/Project/myLearn/lab_cla_lp_f2837xd/device/device.h
 Hal_Eep.obj: ../Hal_Eep.h
 
 ../Hal_Eep.c:
 
-C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/driverlib.h:
+D:/Project/myLearn/lab_cla_lp_f2837xd/device/driverlib.h:
 
 C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/inc/hw_memmap.h:
 
@@ -266,11 +266,11 @@ C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/version.h:
 
 C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/driver_inclusive_terminology_mapping.h:
 
-C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/device.h:
+D:/Project/myLearn/lab_cla_lp_f2837xd/device/device.h:
 
 ../i2cLib_FIFO_polling.h:
 
-C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/device.h:
+D:/Project/myLearn/lab_cla_lp_f2837xd/device/device.h:
 
 ../Hal_Eep.h:
 

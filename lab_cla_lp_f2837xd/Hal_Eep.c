@@ -104,6 +104,7 @@
          dev->DataRd[i] = 0;
          dev->DataWr[i] = 0;
      }
+     return 0;
  }
  uint16_t EEPROM_Write(EEPROMDriver *dev){
      uint16_t status;

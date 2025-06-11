@@ -53,4 +53,5 @@
  extern uint16_t EEPROM_Buffer_Clear(EEPROMDriver *dev);
  extern void EEprom_test_demo();
  #endif /* HAL_EEP_H  */
- /******* E N D  (Hal_Eep.h )****************************************************/
+
+ /* ****** E N D  (Hal_Eep.h )*************************************************** */

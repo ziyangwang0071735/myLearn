@@ -1,0 +1,18 @@
+/**
+ * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
+ * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
+ * @cliArgs --device "Other" --part "Other" --package "Other" --product "ascstudio@1.0.17"
+ * @v2CliArgs --device "Other" --package "Other" --product "ascstudio@1.0.17"
+ * @versions {"tool":"1.24.0+4110"}
+ */
+
+/**
+ * Import the modules used in this configuration.
+ */
+const TMP102  = scripting.addModule("/ti/sensors/tempsensor/TMP102", {}, false);
+const TMP1021 = TMP102.addInstance();
+
+/**
+ * Write custom configuration values to the imported modules.
+ */
+TMP1021.$name = "TMP102_0";

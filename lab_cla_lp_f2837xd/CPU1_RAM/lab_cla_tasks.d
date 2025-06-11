@@ -1,7 +1,7 @@
 # FIXED
 
 lab_cla_tasks.obj: ../lab_cla_tasks.cla
-lab_cla_tasks.obj: C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/driverlib.h
+lab_cla_tasks.obj: D:/Project/myLearn/lab_cla_lp_f2837xd/device/driverlib.h
 lab_cla_tasks.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/inc/hw_memmap.h
 lab_cla_tasks.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/adc.h
 lab_cla_tasks.obj: C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/stdbool.h
@@ -84,12 +84,12 @@ lab_cla_tasks.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/inc/hw
 lab_cla_tasks.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/version.h
 lab_cla_tasks.obj: C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/driver_inclusive_terminology_mapping.h
 lab_cla_tasks.obj: syscfg/board.h
-lab_cla_tasks.obj: C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/device.h
+lab_cla_tasks.obj: D:/Project/myLearn/lab_cla_lp_f2837xd/device/device.h
 lab_cla_tasks.obj: ../lab_shared.h
 
 ../lab_cla_tasks.cla:
 
-C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/driverlib.h:
+D:/Project/myLearn/lab_cla_lp_f2837xd/device/driverlib.h:
 
 C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/inc/hw_memmap.h:
 
@@ -255,7 +255,7 @@ C:/ti/C2000Ware_5_02_00_00/driverlib/f2837xd/driverlib/driver_inclusive_terminol
 
 syscfg/board.h:
 
-C:/Users/wzy00/workspace_v12/lab_cla_lp_f2837xd/device/device.h:
+D:/Project/myLearn/lab_cla_lp_f2837xd/device/device.h:
 
 ../lab_shared.h:
 

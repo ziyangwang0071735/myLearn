@@ -1,0 +1,8 @@
+{
+    "interruptInfo" : [
+        {
+            "interruptName": "INT_myDMA0",
+            "interruptHandler": "INT_myDMA0_ISR"
+        }
+    ]
+}

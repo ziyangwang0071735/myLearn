@@ -1,0 +1,130 @@
+FB_FLash1(tCycletime:= t1, bQ=> bDout1);
+
+IF bDout1 = NOT bDout1_old THEN
+  FOR Axis_id := 3 TO 0 BY -1 DO
+    bDout1_old := bDout1;
+    MAIN.ReadnAxis(Axis_id);
+
+    CASE GVL.myRobot_val.Robotic_SMT[Axis_id] OF
+
+      // ------------------ INIT 状态逻辑（你已有） ------------------
+      Robotic_SMT_e.INIT:
+        GVL.myRobot_fb.Do_nAxis_Disable(Axis_id);
+        GVL.myRobot_fb.Get_Axis_Status(Axis_id);
+        GVL.myRobot_fb.Update_UI_Show(Axis_id);
+        IF GVL.myRobot_val.nAxis_SMT[Axis_id] = nAxis_SMT_e.ENABLE THEN
+          GVL.myRobot_val.Robotic_SMT[Axis_id] := Robotic_SMT_e.INIT;
+        ELSIF GVL.myRobot_val.nAxis_SMT[Axis_id] = nAxis_SMT_e.DISABLE THEN
+          GVL.myRobot_val.Robotic_SMT[Axis_id] := Robotic_SMT_e.INIT;
+        ELSIF GVL.myRobot_val.nAxis_SMT[Axis_id] = nAxis_SMT_e.ERR THEN
+          GVL.myRobot_val.Robotic_SMT[Axis_id] := Robotic_SMT_e.ERR;
+        END_IF;
+
+      // ------------------ IDLE 状态逻辑（新增部分） ------------------
+      Robotic_SMT_e.IDLE:
+        GVL.myRobot_fb.Get_UI_Control(Axis_id);
+        IF GVL.myRobot_val.Robotic_CtrlTarg[Axis_id].Targ_Axis_Status = nAxis_SMT_e.ENABLE THEN
+            GVL.myRobot_fb.Get_Axis_Status(Axis_id);
+            GVL.myRobot_fb.Update_UI_Show(Axis_id);
+
+            CASE GVL.myRobot_val.nAxis_SMT[Axis_id] OF
+            nAxis_SMT_e.ERR:
+                GVL.myRobot_val.Robotic_SMT[Axis_id] := Robotic_SMT_e.ERR;
+
+            nAxis_SMT_e.DISABLE:
+                GVL.myRobot_fb.Do_nAxis_Enable(Axis_id);
+                GVL.myRobot_val.Robotic_SMT[Axis_id] := Robotic_SMT_e.IDLE;
+
+            nAxis_SMT_e.ENABLE:
+                GVL.myRobot_val.Robotic_SMT[Axis_id] := Robotic_SMT_e.ENABLE;
+            END_CASE;
+        ELSE
+            // UI指令为DISABLE时，仅刷新状态，不执行动作
+            GVL.myRobot_fb.Get_Axis_Status(Axis_id);
+            GVL.myRobot_fb.Update_UI_Show(Axis_id);
+        END_IF
+      // ------------------ ENABLE 状态逻辑（新增部分） ------------------
+      Robotic_SMT_e.ENABLE:
+        // 1. 状态获取与界面更新
+        GVL.myRobot_fb.Get_Axis_Status(Axis_id);
+        GVL.myRobot_fb.Update_UI_Show(Axis_id);
+
+        // 2. 根据实际轴状态转换
+        CASE GVL.myRobot_val.nAxis_SMT[Axis_id] OF
+          nAxis_SMT_e.ERR:
+            GVL.myRobot_val.Robotic_SMT[Axis_id] := Robotic_SMT_e.ERR;
+
+          nAxis_SMT_e.DISABLE:
+            GVL.myRobot_val.Robotic_SMT[Axis_id] := Robotic_SMT_e.IDLE;
+
+          nAxis_SMT_e.ENABLE:
+            // 继续执行下面的 UI 控制逻辑
+        END_CASE;
+
+        // 3. 获取UI命令
+        GVL.myRobot_fb.Get_UI_Control(Axis_id);
+
+        CASE GVL.myRobot_val.Robotic_CtrlTarg[Axis_id].Targ_Axis_Status OF
+          nAxis_SMT_e.DISABLE:
+            GVL.myRobot_fb.Do_nAxis_Disable(Axis_id);
+            GVL.myRobot_val.Robotic_SMT[Axis_id] := Robotic_SMT_e.ENABLE;
+
+          nAxis_SMT_e.ENABLE:
+            IF
+            GVL.myRobot_fb.Do_nAxis_Run(Axis_id);
+            GVL.myRobot_val.Robotic_SMT[Axis_id] := Robotic_SMT_e.RUN;
+        END_CASE;
+
+    // ------------------ RUN 状态（新增加） ------------------
+      Robotic_SMT_e.RUN:
+        // 1. 状态检测与UI刷新
+        GVL.myRobot_fb.Get_Axis_Status(Axis_id);
+        GVL.myRobot_fb.Update_UI_Show(Axis_id);
+
+        // 2. 根据轴反馈状态转移
+        CASE GVL.myRobot_val.nAxis_SMT[Axis_id] OF
+          nAxis_SMT_e.ERR:
+            GVL.myRobot_val.Robotic_SMT[Axis_id] := Robotic_SMT_e.ERR;
+
+          nAxis_SMT_e.DISABLE:
+            GVL.myRobot_val.Robotic_SMT[Axis_id] := Robotic_SMT_e.IDLE;
+
+          nAxis_SMT_e.ENABLE:
+            GVL.myRobot_val.Robotic_SMT[Axis_id] := Robotic_SMT_e.ENABLE;
+
+          nAxis_SMT_e.RUN:
+            // 维持 RUN 状态，继续执行下面 UI 控制逻辑
+        END_CASE;
+
+        // 3. 读取 UI 控制并执行对应操作
+        GVL.myRobot_fb.Get_UI_Control(Axis_id);
+
+        CASE GVL.myRobot_val.Robotic_CtrlTarg[Axis_id].Targ_Axis_Status OF
+          nAxis_SMT_e.DISABLE:
+            GVL.myRobot_fb.Do_nAxis_Disable(Axis_id);
+            GVL.myRobot_val.Robotic_SMT[Axis_id] := Robotic_SMT_e.ENABLE;
+
+          nAxis_SMT_e.RUN:
+            GVL.myRobot_fb.Do_nAxis_Run(Axis_id);
+            GVL.myRobot_val.Robotic_SMT[Axis_id] := Robotic_SMT_e.RUN;
+
+          nAxis_SMT_e.ENABLE:
+            GVL.myRobot_fb.Do_nAxis_Stop(Axis_id);
+            GVL.myRobot_val.Robotic_SMT[Axis_id] := Robotic_SMT_e.ENABLE;
+        END_CASE;
+      // ------------------ ERR 状态 ------------------
+      Robotic_SMT_e.ERR:
+        // 1. 状态检测与UI刷新
+        GVL.myRobot_fb.Get_Axis_Status(Axis_id);
+        GVL.myRobot_fb.Get_UI_Control(Axis_id);  
+        GVL.myRobot_fb.Update_UI_Show(Axis_id);
+        IF GVL.myRobot_val.nAxis_SMT[Axis_id] = NOT Robotic_SMT_e.ERR THEN
+          GVL.myRobot_val.Robotic_SMT[Axis_id] := Robotic_SMT_e.INIT
+        END_IF
+
+
+    END_CASE;
+
+    MAIN.WriteAxis(Axis_id);
+  END_FOR
+END_IF

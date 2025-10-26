@@ -1,0 +1,18 @@
+METHOD Do_nAxis_Enable : BOOL
+VAR_INPUT
+    i : INT;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+
+IF GVL.myRobot_val.Robotic_CtrlTarg[i].IsTarg_Axis = 1 THEN
+    // 清除UI相悖项目
+
+    // Enable 控制逻辑
+    GVL.myRobot_val.nAxisControl[i].CtrlWord := 15;   // 典型的伺服使能字（Enable Voltage + Ready to Switch On）
+    GVL.myRobot_val.nAxisControl[i].TargetPosReal := 0;
+    GVL.myRobot_val.nAxisControl[i].TargetTorque := 0;
+    GVL.myRobot_val.nAxisControl[i].TargetVel_RPM := 0;
+END_IF

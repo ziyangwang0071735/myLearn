@@ -1,0 +1,45 @@
+METHOD Get_UI_Control : BOOL
+VAR_INPUT
+    i : INT;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+
+
+IF GVL.UI_control.Mode_CMD = 0 THEN
+//更新轴选中
+    GVL.myRobot_val.Robotic_CtrlTarg[i].IsTarg_Axis := 1;
+ELSIF GVL.UI_control.Mode_CMD = 1 THEN
+//更新速度模式参数
+    GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_RPM := GVL.UI_control.Para_Targ_RPM;
+    GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Acc_RPS2 := GVL.UI_control.Para_Targ_Acc_RPS2;
+    GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_StayTime_s := GVL.UI_control.Para_Targ_StayTime_s;  
+    GVL.myRobot_val.Robotic_CtrlTarg[i].Trig_RUN := GVL.UI_control.Axis_Control_CMD[2];
+    IF GVL.UI_control.Axis_Control_CMD[0] = 1 THEN
+        GVL.myRobot_val.Robotic_CtrlTarg[Axis_id].Targ_Axis_Status := nAxis_SMT_e.ERR; 
+    ELSIF GVL.UI_control.Axis_Control_CMD[1] = 1 THEN
+        GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Axis_Status := nAxis_SMT_e.ENABLE;
+    ELSE
+        GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Axis_Status := nAxis_SMT_e.DISABLE;
+    END_IF
+ELSIF GVL.UI_control.Mode_CMD = 2 THEN
+//更新电流模式参数
+    GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Torque_mA := GVL.UI_control.Para_Targ_RPM;
+    GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Acc_RPS2 := GVL.UI_control.Para_Targ_Acc_RPS2;
+    GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_StayTime_s := GVL.UI_control.Para_Targ_StayTime_s;  
+END_IF
+
+
+
+IF GVL.myRobot_val.Robotic_SMT[i] = Robotic_SMT_e.IDLE THEN
+//更新轴模式 仅IDLE模式下更新
+    GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Axis_Mode :=  GVL.UI_control.Mode_CMD;
+    GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Cycle_x2 := GVL.UI_control.Para_Targ_Cycle*2;
+    GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Pos :=1;
+    GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_RUN_Status := 0;
+END_IF
+
+
+

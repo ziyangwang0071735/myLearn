@@ -1,0 +1,55 @@
+METHOD Do_nAxis_Run : BOOL
+VAR_INPUT
+    i : INT;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+    a_coef : REAL;//系统调用时间间隔
+END_VAR
+
+IF GVL.myRobot_val.Robotic_CtrlTarg[i].IsTarg_Axis = 1 THEN
+    // 清除UI相悖项目
+
+    // Run 控制逻辑
+    CASE GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Axis_Mode OF 
+        
+        1:// 速度模式
+            GVL.myRobot_val.nAxisControl[i].TargetVel_RPM := GVL.myRobot_val.nAxisControl[i].TargetVel_RPM + GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Pos*GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Acc_RPS2*a_coef;
+            IF  GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Pos*GVL.myRobot_val.nAxisControl[i].TargetVel_RPM > GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_RPM THEN
+                    GVL.myRobot_val.nAxisControl[i].TargetVel_RPM :=  GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Pos*GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_RPM;
+                    IF GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_RUN_Status = 0 THEN
+                        GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_RUN_Status  := REAL_TO_INT(GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_StayTime_s/a_coef);
+                    END_IF
+                    GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_RUN_Status := GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_RUN_Status - 1;
+                    IF GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_RUN_Status = 0 THEN
+                        GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Pos := NOT GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Pos;
+                        GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Cycle_x2 := GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Cycle_x2 - 1;
+                    END_IF
+            END_IF
+        2:// 电流模式
+            GVL.myRobot_val.nAxisControl[i].TargetTorque := GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Torque + GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Pos*GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Acc_RPS2*a_coef;
+            IF  GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Pos*GVL.myRobot_val.nAxisControl[i].TargetTorque > GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Torque_mA THEN
+                    GVL.myRobot_val.nAxisControl[i].TargetTorque :=  GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Pos*GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Torque_mA;
+                    IF GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_RUN_Status = 0 THEN
+                        GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_RUN_Status  := REAL_TO_INT(GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_StayTime_s/a_coef);
+                    END_IF
+                    GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_RUN_Status := GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_RUN_Status - 1;
+                    IF GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_RUN_Status = 0 THEN
+                        GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Pos := NOT GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Pos;
+                        GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Cycle_x2 := GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Cycle_x2 - 1;
+                    END_IF
+            END_IF
+    END_CASE
+
+    //运行结束
+    IF GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Cycle_x2 = 0 THEN
+        GVL.UI_control.Axis_Control_CMD[2] := 0;//关闭UI运行按钮
+    ELSE
+        GVL.myRobot_val.nAxisControl[i].CtrlWord := 15;   // Enable Operation
+        GVL.myRobot_val.nAxisControl[i].TargetPosReal := GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_PosReal;
+        GVL.myRobot_val.nAxisControl[i].TargetTorque := GVL.myRobot_val.Robotic_CtrlTarg[i].Targ_Torque;
+    END_IF
+
+
+END_IF

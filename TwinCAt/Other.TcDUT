@@ -1,0 +1,135 @@
+
+{attribute 'qualified_only'}
+VAR_GLOBAL
+  myRobot_fb         :       Robotics;
+  myRobot_val        :      Robotic_t;                 
+  nAxisInput AT%I*     :       ARRAY[0..3] OF nAxisInput_t;   //Variable link with real IO  
+  nAxisOutput AT%Q*     :       ARRAY[0..3] OF nAxisOutput_t;
+  UI_control        :       UI_Control_t; 
+  UI_show          :      UI_Show_t;
+
+END_VAR
+
+
+TYPE UI_Show_t :
+STRUCT
+  Robotic_Status  :ARRAY[0..3] OF WSTRING := [4("INIT")];
+  
+  Spd_ref_rpm   : REAL := 0;
+  Spd_cur_rpm    : REAL := 0;
+  Cycle_num    : REAL := 0;
+END_STRUCT
+END_TYPE
+
+TYPE UI_Control_t :
+STRUCT
+  Mode_CMD: ARRAY[0..2] OF WSTRING := ["BAN","SPEED","CURRENT"];
+  Axis_Mode:ARRAY[0..3] OF INT := [4(0)];//接收Mode_CMD的映射
+  Axis_Control_CMD: ARRAY[0..2] OF BOOL := [3(0)];//接收开关映射No0:ResetErr No1:Enable No2:Start
+  
+  LED_Enable:ARRAY[0..3] OF INT := [4(0)];//使能指示灯：1使能0未使能
+  
+  Para_Targ_RPM    :REAL := 0;
+  Para_Targ_Acc_RPS2  :REAL := 0;
+  Para_Targ_StayTime_s:REAL := 0;
+  Para_Targ_Cycle    :INT := 0;
+  
+  
+END_STRUCT
+END_TYPE
+
+TYPE Robotic_t :
+STRUCT
+  nAxisStatus   : ARRAY[0..3] OF nAxis_Status_t   := [0,0,FALSE];
+  nAxisControl  : ARRAY[0..3] OF nAxis_Control_t  := [0,0,0,0,0];
+  Robotic_SMT     : ARRAY[0..3] OF Robotic_SMT_e     := [4(0)];//0:Init
+  nAxis_SMT    : ARRAY[0..3] OF nAxis_SMT_e    := [4(1)];//1:Disable
+  Robotic_CtrlTarg: ARRAY[0..3] OF Robotic_ControlTarg_t:= [FALSE,0,0,0,0,0,0,0];
+END_STRUCT
+END_TYPE
+
+{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE Robotic_SMT_e :
+(
+  INIT   := 0,
+  IDLE  := 1,
+  ENABLE  := 2,
+  RUN    := 3,
+  ERR    := 4
+);
+END_TYPE
+
+TYPE Robotic_ControlTarg_t :
+STRUCT
+  IsTarg_Axis      :BOOL;
+  Targ_Axis_Status  :nAxis_SMT_e;
+  Targ_Axis_Mode    :INT;
+  Targ_RPM      :REAL;
+  Targ_Acc_RPS2    :REAL;
+  Targ_StayTime_s    :REAL;
+  Targ_Cycle_x2      :INT;//剩余圈数 圈数为目标圈数*2
+  
+  Targ_Torque_mA    :REAL;
+  Targ_Pos        :REAL;//NEW
+  Targ_RUN_Status        :INT;//NEW 0:加速度阶段，>1：停留阶段
+  Trig_RUN	:INT;
+END_STRUCT
+END_TYPE
+
+TYPE nAxisOutput_t :
+STRUCT
+  TargetPosReal   : REAL;     //输出目标关节位置（单位角度）
+  CtrlWord     : UINT;
+  TargetOpeMode    : INT;     //关节运行模式
+  TargetTorque     : DINT;  //输出目标关节转矩
+  TargetVel_PU   : DINT;     //输出目标关节速度
+END_STRUCT
+END_TYPE
+
+TYPE nAxisInput_t :
+STRUCT
+  ActualVel_PU   : REAL;     //关节实际速度
+  //ActualTorque   : REAL;     //关节实际力矩
+  //ActualCurrentIq : REAL;     //关节实际电流
+  //ActualCurrentId : REAL;     //关节实际电流
+  //ActualCurrentIv : REAL;     //关节实际电流
+  //ActualCurrentIu : REAL;     //关节实际电流
+  CurrentOpMode   : SINT;     //关节当前运行模式          
+  Status       : UINT;    //axis current status
+END_STRUCT
+END_TYPE
+
+TYPE nAxis_Status_t :
+STRUCT
+  ActualVel_RPM   : REAL;     //关节实际速度（RPM）  
+  //ActualTorque   : REAL;     //关节实际力矩
+  //ActualCurrentIq : REAL;     //关节实际电流
+  //ActualCurrentId : REAL;     //关节实际电流
+  //ActualCurrentIv : REAL;     //关节实际电流
+  //ActualCurrentIu : REAL;     //关节实际电流
+  CurrentOpMode   : INT;     //关节当前运行模式          
+  Status       : UINT;    //axis current status
+  
+END_STRUCT
+END_TYPE
+
+{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE nAxis_SMT_e :
+(
+  DISABLE  := 1,
+  ENABLE  := 2,
+  ERR    := 4
+);
+END_TYPE
+
+TYPE nAxis_Control_t :
+STRUCT
+  TargetPosReal   : REAL;     //输出目标关节位置（单位角度）
+  CtrlWord     : UINT;
+  TargetOpeMode    : INT;     //关节运行模式
+  TargetTorque     : DINT;  //输出目标关节转矩
+  TargetVel_RPM   : REAL;     //输出目标关节速度
+END_STRUCT
+END_TYPE
